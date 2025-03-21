@@ -3,7 +3,7 @@ package q6;
 import java.util.*;
 import java.util.Map;
 
-public class Emotional_______ {
+public class Emotional {
     private static final Map<String, Integer> priority = new HashMap<>();
     static {
         priority.put(":D", 5);
