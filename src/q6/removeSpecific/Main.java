@@ -9,10 +9,14 @@ import java.util.stream.IntStream;
 public class Main {
     public static void main(String[] args) {
         Main m = new Main();
-        int[] arr = new int[]{5, 1, 7, 4, 3};
+        int[] arr = new int[]{5, 1, 7, 7, 4, 3};
         int[][] array2 = m.firstPart(arr, arr.length);
 
         List <Integer> list = m.secondPart(array2, arr.length);
+
+        System.out.println(list);
+
+        ///тут треба повернути масив, але не масив масивів??? а як же варіант з двома відповідями
         list.stream().collect(Collectors.toMap(key -> key, key -> arr[key]));
     }
 
@@ -38,10 +42,10 @@ public class Main {
             list.add((double) mult / sum);
         }
 
-        System.out.println(list.toString());
+        //System.out.println(list.toString());
         Double firstValue = list.stream().reduce(Double.MAX_VALUE, (a, b) -> a < b ? a : b);
             return IntStream.range(0, list.size())
-                    .filter(i -> list.get(i) == firstValue)
+                    .filter(i -> list.get(i) == firstValue) /// чому тут виводиться в ліст 3 ане 2 і 3
                     .boxed()
                     .collect(Collectors.toList());
     }
