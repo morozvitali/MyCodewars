@@ -6,47 +6,57 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+
 public class Main {
-    public static void main(String[] args) {
-        Main m = new Main();
-        int[] arr = new int[]{5, 1, 7, 7, 4, 3};
-        int[][] array2 = m.firstPart(arr, arr.length);
 
-        List <Integer> list = m.secondPart(array2, arr.length);
+    public static int[][] selectSubarray(final int[] arr) {
+                // your code here
+                int n = arr.length;
 
-        System.out.println(list);
+                int[][] bigArray = new int[n][];
+                for (int i = 0; i < n; i++) {
+                    List<Integer> tempList = Arrays.stream(arr).boxed().collect(Collectors.toList());
+                    tempList.remove(i);
+                    bigArray[i] = new int[n - 1];
+                    for (int a = 0; a < n - 1; a++) {
+                        bigArray[i][a] = tempList.get(a);
+                    }
+                }
 
-        ///тут треба повернути масив, але не масив масивів??? а як же варіант з двома відповідями
-        list.stream().collect(Collectors.toMap(key -> key, key -> arr[key]));
-    }
+                List<Double> listQ = new ArrayList<>();
 
-    public int[][] firstPart(int[] array, int n) {
-        int[][] newArray = new int[n][];
-        for (int i = 0; i < n; i++) {
-            List<Integer> list = Arrays.stream(array).boxed().collect(Collectors.toList());
-            list.remove(i);
-            newArray[i] = new int[n - 1];
-            for (int a = 0; a < n - 1; a++) {
-                newArray[i][a] = list.get(a);
+                for (int[] subArray : bigArray) {
+                    int sum = Arrays.stream(subArray).sum();
+                    double product = 1.0;
+
+                    for (int value : subArray) {
+                        product *= value;
+                    }
+
+                    if (sum == 0) {
+                        listQ.add(Double.POSITIVE_INFINITY);
+                    } else {
+                        listQ.add(Math.abs(product / sum));
+                    }
+                }
+
+                double min = listQ.stream().min(Double::compareTo).orElse(Double.POSITIVE_INFINITY);
+
+                final double EPSILON = 1e-9;
+                List<Integer> indexes = new ArrayList<>();
+                for (int i = 0; i < listQ.size(); i++) {
+                    if (Math.abs(listQ.get(i) - min) < EPSILON) {
+                        indexes.add(i);
+                    }
+                }
+
+                int[][] result = new int[indexes.size()][2];
+                for (int i = 0; i < indexes.size(); i++) {
+                    int idx = indexes.get(i);
+                    result[i][0] = idx;
+                    result[i][1] = arr[idx];
+                }
+
+                return result;
             }
         }
-        return newArray;
-    }
-
-    public List<Integer> secondPart(int[][] array, int n) {
-        List<Double> list = new ArrayList<>();
-
-        for (int[] ints : array) {
-            int sum = Arrays.stream(ints).reduce(0, (a, b) -> a + b);
-            int mult = Arrays.stream(ints).reduce(1, (a, b) -> a * b);
-            list.add((double) mult / sum);
-        }
-
-        //System.out.println(list.toString());
-        Double firstValue = list.stream().reduce(Double.MAX_VALUE, (a, b) -> a < b ? a : b);
-            return IntStream.range(0, list.size())
-                    .filter(i -> list.get(i) == firstValue) /// чому тут виводиться в ліст 3 ане 2 і 3
-                    .boxed()
-                    .collect(Collectors.toList());
-    }
-}
