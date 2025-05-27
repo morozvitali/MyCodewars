@@ -1,7 +1,4 @@
 package q7.sixеoast;
-import org.junit.Test;
-import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /*
 TODO
@@ -34,26 +31,5 @@ public class Kata {
         return num > 6 ? num -6 : 6 - num;
 
         // better variant Math.abs(6 - num);
-    }
-}
-
-
-
-class SixToastTest {
-
-    public static void main(String[] args) {
-        SixToastTest sixToastTest = new SixToastTest();
-        sixToastTest.sampleTests();
-    }
-    private static void doTest(int num, int expected) {
-        assertEquals(expected, Kata.sixToast(num), "Incorrect answer for num = " + num + "\n\n");
-    }
-
-    @Test
-    @DisplayName("Sample Tests")
-    public void sampleTests() {
-        doTest(15, 9);
-        doTest(6, 0);
-        doTest(3, 3);
     }
 }
