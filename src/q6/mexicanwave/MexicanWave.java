@@ -1,34 +1,31 @@
 package q6.mexicanwave;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MexicanWave {
     public static String[] wave(String str) {
-        // Your code here
-        String array[] = new String[str.length()];
+        List<String> result = new ArrayList<>();
+
         for (int i = 0; i < str.length(); i++) {
-            array[i] = "";
-            for (int a = 0; a < str.length(); a++) {
+            char currentChar = str.charAt(i);
 
-                if (a != i) {
-
-                    if (str.charAt(a) == ' ') {
-                        continue;
-                    }
-
-                    array[i] = array[i].concat(str.substring(a, a + 1));
-                } else {
-                    array[i] = array[i].concat(str.substring(a, a + 1).toUpperCase());
-                }
-
-
+            if (currentChar == ' ') {
+                //result.add("");
+            } else {
+                StringBuilder wave = new StringBuilder(str);
+                wave.setCharAt(i, Character.toUpperCase(currentChar));
+                result.add(wave.toString());
             }
         }
-        return array;
+
+        return result.toArray(new String[0]);
     }
 
+
+
     public static void main(String[] args) {
-        for (String s : MexicanWave.wave("start drgfsz")) {
+        for (String s : MexicanWave.wave("Two words")) {
             System.out.println(s);
         }
     }
