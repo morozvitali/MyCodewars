@@ -1,7 +1,24 @@
 package q8;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Neutralisation {
-}
+    public static String neutralise(String s1, String s2) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i<s1.length(); i++) {
+            if ((s1.charAt(i) == '+') && (s2.charAt(i) == '+')) {
+                sb.append('+');
+            } else if ((s1.charAt(i) == '-') && (s2.charAt(i) == '-')) {
+                    sb.append('-');
+                }
+            else sb.append('0');
+            }
+        return sb.toString();
+        }
+    }
+
+//  return range(0, s1.length()).mapToObj(i -> s1.charAt(i) == s2.charAt(i) ? s1.charAt(i) + "" : "0").collect(joining());
 
 
 // oiyugilgyu
