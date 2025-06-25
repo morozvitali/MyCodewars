@@ -9,6 +9,7 @@ public class DuplicateEncoder {
                 .mapToObj(c -> (char) c)
                 .collect(Collectors.groupingBy(c -> c, Collectors.counting()));
 
+
         return word.chars()
                 .mapToObj(c -> (char) c)
                 .map(ch -> mapping.get(ch) > 1 ? ")" : "(")
