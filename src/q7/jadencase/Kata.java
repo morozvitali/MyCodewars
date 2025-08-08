@@ -1,7 +1,6 @@
 package q7.jadencase;
 
 import java.util.Arrays;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class Kata {
